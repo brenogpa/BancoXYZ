@@ -2,28 +2,30 @@
 using System.Text;
 using System.IO;
 using System.Security.Cryptography;
+using System.Collections.Generic;
 
 namespace BancoXYZ.Models
 {
     public class User
     {
         public string Account { get; set; }
-        public string HashedPassword { get; set; }
+        public string Password { get; set; }
+        public decimal Balance { get; set; }
     }
 
     public class UserService
     {
         public const string UsersFilePath = "users.json";
 
-        public Dictionary<string, string> LoadUsers()
+        public List<User> LoadUsers()
         {
             if (!File.Exists(UsersFilePath))
             {
-                return new Dictionary<string, string>();
+                return new List<User>();
             }
 
             string json = File.ReadAllText(UsersFilePath);
-            return JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+            return JsonSerializer.Deserialize<List<User>>(json);
         }
 
         public string HashPassword(string password)

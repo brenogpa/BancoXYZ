@@ -24,18 +24,25 @@ namespace BancoXYZ.ViewModels
             }
 
             var users = _userService.LoadUsers();
-            if (users.ContainsKey(currentAccount))
+            if (users.Exists(u => u.Account == currentAccount))
             {
                 MessageBox.Show("Account already exists.");
                 return;
             }
 
-            users[currentAccount] = _userService.HashPassword(password);
+            var newUser = new User
+            {
+                Account = currentAccount,
+                Password = _userService.HashPassword(password),
+                Balance = 0
+            };
+
+            users.Add(newUser);
             SaveUsers(users);
             MessageBox.Show("Account created.");
         }
 
-        private void SaveUsers(Dictionary<string, string> users)
+        private void SaveUsers(List<User> users)
         {
             string json = JsonSerializer.Serialize(users);
             File.WriteAllText(UserService.UsersFilePath, json);

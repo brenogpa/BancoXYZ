@@ -1,6 +1,7 @@
 ﻿using BancoXYZ.Models;
 using BancoXYZ.Views;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace BancoXYZ.ViewModels
@@ -23,9 +24,11 @@ namespace BancoXYZ.ViewModels
             }
 
             var users = _userService.LoadUsers();
-            if (users.TryGetValue(currentAccount, out string storedHashedPassword))
+            var user = users.FirstOrDefault(u => u.Account == currentAccount);
+
+            if (user != null)
             {
-                if (_userService.VerifyPassword(password, storedHashedPassword))
+                if (_userService.VerifyPassword(password, user.Password))
                 {
                     MessageBox.Show("Successful login!");
                 }
