@@ -30,7 +30,8 @@ namespace BancoXYZ.ViewModels
             {
                 if (_userService.VerifyPassword(password, user.Password))
                 {
-                    MessageBox.Show("Successful login!");
+                    HomeView homeView = new HomeView(user);
+                    homeView.Show();
                 }
                 else
                 {
