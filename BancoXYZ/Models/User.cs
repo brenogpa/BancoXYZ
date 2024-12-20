@@ -9,6 +9,7 @@ namespace BancoXYZ.Models
     public class User
     {
         public string Account { get; set; }
+        public string Name { get; set; }
         public string Password { get; set; }
         public decimal Balance { get; set; }
     }
@@ -26,6 +27,23 @@ namespace BancoXYZ.Models
 
             string json = File.ReadAllText(UsersFilePath);
             return JsonSerializer.Deserialize<List<User>>(json);
+        }
+
+        public void SaveUsers(List<User> users)
+        {
+            string json = JsonSerializer.Serialize(users);
+            File.WriteAllText(UsersFilePath, json);
+        }
+
+        public void UpdateUserBalance(User user, decimal newBalance)
+        {
+            var users = LoadUsers();
+            var existingUser = users.Find(u => u.Account == user.Account);
+            if (existingUser != null)
+            {
+                existingUser.Balance = newBalance;
+                SaveUsers(users);
+            }
         }
 
         public string HashPassword(string password)

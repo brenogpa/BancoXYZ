@@ -1,7 +1,5 @@
 ﻿using BancoXYZ.Models;
 using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
 using System.Windows;
 
 namespace BancoXYZ.ViewModels
@@ -15,9 +13,9 @@ namespace BancoXYZ.ViewModels
             _userService = new UserService();
         }
 
-        public void Register(string currentAccount, string password)
+        public void Register(string currentAccount, string name, string password)
         {
-            if (string.IsNullOrEmpty(currentAccount) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(currentAccount) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(name))
             {
                 MessageBox.Show("All fields are required.");
                 return;
@@ -33,19 +31,14 @@ namespace BancoXYZ.ViewModels
             var newUser = new User
             {
                 Account = currentAccount,
+                Name = name,
                 Password = _userService.HashPassword(password),
                 Balance = 0
             };
 
             users.Add(newUser);
-            SaveUsers(users);
+            _userService.SaveUsers(users);
             MessageBox.Show("Account created.");
-        }
-
-        private void SaveUsers(List<User> users)
-        {
-            string json = JsonSerializer.Serialize(users);
-            File.WriteAllText(UserService.UsersFilePath, json);
         }
     }
 }

@@ -18,8 +18,9 @@ namespace BancoXYZ.Views
         private void OnRegisterClick(object sender, RoutedEventArgs e)
         {
             string currentAccount = CurrentAccountTextBox.Text;
+            string name = NameTextBox.Text;
             string password = PasswordTextBox.Password;
-            _viewModel.Register(currentAccount, password);
+            _viewModel.Register(currentAccount, name, password);
         }
 
         private void OnBackToLoginClick(object sender, RoutedEventArgs e)
@@ -28,7 +29,6 @@ namespace BancoXYZ.Views
             loginView.Show();
             this.Close();
         }
-
 
         private void CurrentAccountTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
