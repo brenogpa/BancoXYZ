@@ -11,19 +11,27 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen">
-    <Border Background="#272537"
-            CornerRadius="20">
+    <Border CornerRadius="20">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                <GradientStop Color="#03618a" Offset="0.2"/>
+                <GradientStop Color="White" Offset="0.2"/>
+                <GradientStop Color="White" Offset="1.2"/>
+            </LinearGradientBrush>
+        </Border.Background>
         <Grid>
-            <TextBlock Text="{Binding Balance, StringFormat=C}"
+            <Button Content="_" HorizontalAlignment="Right" VerticalAlignment="Top" Width="30" Height="30" Click="MinimizeButton_Click" Margin="0,0,53,0" Background="Transparent"/>
+            <Button Content="X" HorizontalAlignment="Right" VerticalAlignment="Top" Width="30" Height="30" Margin="0,0,21,0" Click="CloseButton_Click" Background="Transparent"/>
+            <TextBlock Text="{Binding Balance, StringFormat={}{0:C}, ConverterCulture=pt-BR}"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Top"
-                       Margin="0,30,92,0"
-                       FontSize="24"
+                       Margin="0,38,389,0"
+                       FontSize="36"
                        Foreground="White"/>
             <TextBox x:Name="DepositAmountTextBox"
                      HorizontalAlignment="Right"
                      VerticalAlignment="Top"
-                     Margin="0,71,29,0"
+                     Margin="0,25,115,0"
                      Width="200"
                      Height="30"
                      FontSize="16"
@@ -34,7 +42,7 @@
             <Button Content="Deposit"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
-                    Margin="0,113,80,0"
+                    Margin="0,72,166,0"
                     Width="100"
                     Height="30"
                     Click="OnDepositClick"
@@ -42,23 +50,61 @@
             <Button Content="Logout"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
-                    Margin="30,0,0,35"
-                    Width="100"
-                    Height="30"
+                    Margin="28,0,0,496"
+                    Width="70"
+                    Height="23"
                     Click="OnLogoutClick"
                     Style="{StaticResource CustomButtonStyle}"/>
             <TextBlock Text="{Binding User.Name, StringFormat='Welcome, {0}'}"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       Margin="30,30,0,0"
+                       Margin="30,21,0,0"
                        FontSize="20"
                        Foreground="White"/>
             <TextBlock Text="{Binding User.Account, StringFormat='Account: {0}'}"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       Margin="30,60,0,0"
+                       Margin="30,52,0,0"
                        FontSize="16"
                        Foreground="White"/>
+            <Border Background="#FF282735"
+                    CornerRadius="10"
+                    HorizontalAlignment="Center"
+                    Height="410"
+                    Margin="0,155,0,0"
+                    VerticalAlignment="Top"
+                    Width="860">
+                <StackPanel Margin="10">
+                    <TextBox x:Name="WithdrawAmountTextBox"
+                             Width="200"
+                             Height="30"
+                             FontSize="16"
+                             VerticalContentAlignment="Center"
+                             HorizontalContentAlignment="Left"
+                             Padding="5"
+                             Margin="10"
+                             Style="{StaticResource CustomTextBoxStyle}"/>
+                    <Button Content="Withdraw"
+                            Width="100"
+                            Height="30"
+                            Margin="10"
+                            Click="OnWithdrawClick"
+                            Style="{StaticResource CustomButtonStyle}"/>
+                    <ListBox x:Name="WithdrawOptionsListBox"
+                             Width="600"
+                             Height="200"
+                             Margin="10"
+                             Style="{StaticResource CustomListBoxStyle}" Background="#FF343343"/>
+                    <Button x:Name="ConfirmWithdrawButton"
+                            Content="Confirm"
+                            Width="100"
+                            Height="30"
+                            Margin="10"
+                            Click="OnConfirmWithdrawClick"
+                            Style="{StaticResource CustomButtonStyle}"
+                            Visibility="Collapsed"/>
+                </StackPanel>
+            </Border>
         </Grid>
     </Border>
 </Window>

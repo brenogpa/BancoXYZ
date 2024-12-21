@@ -1,10 +1,10 @@
 ﻿<Application x:Class="BancoXYZ.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="Views/MainView.xaml">
+             StartupUri="Views/LoginView.xaml">
     <Application.Resources>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#006064"/>
+            <Setter Property="Background" Value="#0098da"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -23,10 +23,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#00838F"/>
+                                <Setter Property="Background" Value="#343343"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#004D40"/>
+                                <Setter Property="Background" Value="#343320"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -36,7 +36,7 @@
 
         <Style x:Key="CustomTextBoxStyle" TargetType="TextBox">
             <Setter Property="Background" Value="#1E1E1E80"/>
-            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Foreground" Value="Gray"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="BorderBrush" Value="#CCCCCC"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -53,7 +53,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="#006064"/>
+                                <Setter Property="BorderBrush" Value="#0098da"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -63,7 +63,7 @@
 
         <Style x:Key="CustomPasswordBoxStyle" TargetType="PasswordBox">
             <Setter Property="Background" Value="#1E1E1E80"/>
-            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Foreground" Value="Gray"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="BorderBrush" Value="#CCCCCC"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -80,7 +80,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="#006064"/>
+                                <Setter Property="BorderBrush" Value="#343320"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -108,6 +108,16 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <Style x:Key="CustomListBoxStyle" TargetType="ListBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
     </Application.Resources>
 </Application>
