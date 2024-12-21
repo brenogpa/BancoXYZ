@@ -6,28 +6,27 @@ using System.Windows.Input;
 
 namespace BancoXYZ.Views
 {
-    public partial class RegisterView : Window
+    public partial class LoginView : Window
     {
         private readonly UserService _userService;
 
-        public RegisterView()
+        public LoginView()
         {
             InitializeComponent();
             _userService = new UserService();
         }
 
-        private void OnRegisterClick(object sender, RoutedEventArgs e)
+        private void OnLoginClick(object sender, RoutedEventArgs e)
         {
             string currentAccount = CurrentAccountTextBox.Text;
-            string name = NameTextBox.Text;
             string password = PasswordTextBox.Password;
-            Register(currentAccount, name, password);
+            Login(currentAccount, password);
         }
 
-        private void OnBackToLoginClick(object sender, RoutedEventArgs e)
+        private void OnRegisterClick(object sender, RoutedEventArgs e)
         {
-            LoginView loginView = new LoginView();
-            loginView.Show();
+            RegisterView registerView = new RegisterView();
+            registerView.Show();
             this.Close();
         }
 
@@ -42,35 +41,34 @@ namespace BancoXYZ.Views
             return !regex.IsMatch(text);
         }
 
-        public void Register(string currentAccount, string name, string password)
+        public void Login(string currentAccount, string password)
         {
-            if (string.IsNullOrEmpty(currentAccount) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(currentAccount) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("All fields are required.");
                 return;
             }
 
             var users = _userService.LoadUsers();
-            if (users.Exists(u => u.Account == currentAccount))
+            var user = users.FirstOrDefault(u => u.Account == currentAccount);
+
+            if (user != null)
             {
-                MessageBox.Show("Account already exists.");
-                return;
+                if (_userService.VerifyPassword(password, user.Password))
+                {
+                    HomeView homeView = new HomeView(user);
+                    homeView.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Wrong password!");
+                }
             }
-
-            var newUser = new User
+            else
             {
-                Account = currentAccount,
-                Name = name,
-                Password = _userService.HashPassword(password),
-                Balance = 0
-            };
-
-            users.Add(newUser);
-            _userService.SaveUsers(users);
-            MessageBox.Show("Account created.");
-            LoginView loginView = new LoginView();
-            loginView.Show();
-            this.Close();
+                MessageBox.Show("Current account not found.");
+            }
         }
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
@@ -82,5 +80,6 @@ namespace BancoXYZ.Views
         {
             this.Close();
         }
+
     }
 }
