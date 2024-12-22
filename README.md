@@ -5,7 +5,6 @@ The project is developed using C# and WPF, targeting .NET 8. The system allows u
 *	User Authentication: Basic user model and authentication logic.
 *	Deposit and Withdrawal: Users can deposit and withdraw money, with balance updates reflected in real-time.
 *	Banknote Combinations: Logic to generate up to three possible combinations of banknotes for a given withdrawal amount.
-*	User Interface: Clean and user-friendly interface for interacting with the ATM system.
 
 ## Project Structure
 *	BancoXYZ.Models: Contains the User model.
